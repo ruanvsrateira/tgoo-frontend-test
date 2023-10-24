@@ -18,6 +18,7 @@ export const postSchema = yup.object({
   ),})
 
 export interface IPostSchema {
+  id?: string
   title: string,
   seo_title: string,
   tags: string,
