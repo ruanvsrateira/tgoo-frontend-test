@@ -1,7 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Post } from "../../intefaces/Post";
-import { Box, Button } from "@mui/material";
-import { Delete, Edit, Remove } from "@mui/icons-material";
+import { Box } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 import theme from "../../theme";
 
 interface TableProps {
