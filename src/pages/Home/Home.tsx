@@ -7,6 +7,7 @@ import { Table } from "../../components/Table/Table";
 import { API } from "../../services/axios";
 import { Logo } from "../../components/Logo/Logo";
 import { LoadingIndicator } from "../../components/LoadingIndicator/LoadingIndicator";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -58,19 +59,21 @@ export const Home = () => {
             }}
           />
         </Box>
-        <Button
-          variant="contained"
-          color="success"
-          size="large"
-          style={{
-            backgroundColor: theme.colors["main-orange"],
-            width: breaker1033px ? "100%" : "200px",
-            height: breaker1033px ? "100%" : "43px",
-          }}
-          endIcon={<AddOutlined />}
-        >
-          Nova Postagem
-        </Button>
+        <Link to="/create-post">
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
+            style={{
+              backgroundColor: theme.colors["main-orange"],
+              width: breaker1033px ? "100%" : "200px",
+              height: breaker1033px ? "100%" : "43px",
+            }}
+            endIcon={<AddOutlined />}
+          >
+            Nova Postagem
+          </Button>
+        </Link>
       </Box>
 
       {loading ? (
