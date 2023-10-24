@@ -1,4 +1,4 @@
-import { Box, Container, Button } from "@mui/material";
+import { Box, Container, Button, useMediaQuery } from "@mui/material";
 import { Logo } from "../../components/Logo/Logo";
 import { ArrowBack, Check } from "@mui/icons-material";
 import theme from "../../theme";
@@ -10,6 +10,8 @@ import { API } from "../../services/axios";
 import { toast } from "react-toastify";
 
 export const CreatePost = () => {
+  const breaker800px = useMediaQuery("(max-width: 800px)");
+
   const formik = usePostForm({
     onSubmit: (values) => {
       handleCreatePost(values);
@@ -22,17 +24,28 @@ export const CreatePost = () => {
     API.post("/posts", data).then(({ data }) => {
       if (!data) {
         console.log(data);
-        toast.error("Deu Errado");
+        toast.error("Algo deu errado!");
       } else {
         console.log(data);
-        toast.success("Deu certo");
+        toast.success("Post Criado com Sucesso!");
       }
     });
   }
 
   return (
     <Container>
-      <Box mt={2}>
+      <Box
+        mt={2}
+        style={
+          breaker800px
+            ? {
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }
+            : {}
+        }
+      >
         <Logo />
       </Box>
       <h1
@@ -46,7 +59,21 @@ export const CreatePost = () => {
       </h1>
 
       <form onSubmit={formik.handleSubmit}>
-        <Box display="flex" alignItems="center" gap={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          style={
+            breaker800px
+              ? {
+                  flexDirection: "column",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              : {}
+          }
+        >
           <Input
             label="Título da Postagem"
             fullWidth
@@ -77,7 +104,22 @@ export const CreatePost = () => {
             onBlur={formik.handleBlur}
           />
         </Box>
-        <Box display="flex" alignItems="center" gap={2} mt={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          mt={2}
+          style={
+            breaker800px
+              ? {
+                  flexDirection: "column",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              : {}
+          }
+        >
           <Input
             label="Link do Youtube"
             fullWidth
@@ -99,7 +141,22 @@ export const CreatePost = () => {
             onBlur={formik.handleBlur}
           />
         </Box>
-        <Box display="flex" alignItems="center" gap={2} mt={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          mt={2}
+          style={
+            breaker800px
+              ? {
+                  flexDirection: "column",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              : {}
+          }
+        >
           <Input
             label="Texto Primário"
             fullWidth
@@ -121,7 +178,22 @@ export const CreatePost = () => {
             onBlur={formik.handleBlur}
           />
         </Box>
-        <Box display="flex" alignItems="center" gap={2} mt={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          mt={2}
+          style={
+            breaker800px
+              ? {
+                  flexDirection: "column",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              : {}
+          }
+        >
           <Input
             title="Plfeafaef"
             label="Publicado em"
@@ -148,11 +220,35 @@ export const CreatePost = () => {
           />
         </Box>
 
-        <Box display="flex" gap={2} mt={4}>
+        <Box
+          display="flex"
+          gap={2}
+          mt={4}
+          style={
+            breaker800px
+              ? {
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  width: "100%",
+                }
+              : {}
+          }
+        >
           <Link to="/">
             <Button
               variant="contained"
-              style={{ backgroundColor: theme.colors["main-red"] }}
+              style={
+                breaker800px
+                  ? {
+                      justifyContent: "center",
+                      width: "100%",
+                      height: 50,
+                      backgroundColor: theme.colors["main-red"],
+                    }
+                  : {
+                      backgroundColor: theme.colors["main-red"],
+                    }
+              }
               startIcon={<ArrowBack />}
               size="large"
             >
@@ -161,7 +257,18 @@ export const CreatePost = () => {
           </Link>
           <Button
             variant="contained"
-            style={{ backgroundColor: theme.colors["main-green"] }}
+            style={
+              breaker800px
+                ? {
+                    justifyContent: "center",
+                    height: 50,
+                    width: "100%",
+                    backgroundColor: theme.colors["main-green"],
+                  }
+                : {
+                    backgroundColor: theme.colors["main-green"],
+                  }
+            }
             endIcon={<Check />}
             size="large"
             type="submit"
