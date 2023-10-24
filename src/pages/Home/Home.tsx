@@ -14,7 +14,6 @@ export const Home = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [posts, setPosts] = useState([]);
 
-  const breaker650px = useMediaQuery("(max-width: 650px)");
   const breaker1033px = useMediaQuery("(max-width: 1033px)");
 
   function fetchPosts() {
