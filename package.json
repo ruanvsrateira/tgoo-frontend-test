@@ -1,0 +1,39 @@
+{
+  "name": "material-ui-vite-ts",
+  "private": true,
+  "version": "5.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@mui/x-data-grid": "^6.16.3",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "^6.17.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.5.1",
+    "@storybook/addon-interactions": "^7.5.1",
+    "@storybook/addon-links": "^7.5.1",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.1",
+    "@storybook/react": "^7.5.1",
+    "@storybook/react-vite": "^7.5.1",
+    "@storybook/testing-library": "^0.2.2",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "storybook": "^7.5.1",
+    "typescript": "latest",
+    "vite": "latest"
+  }
+}
