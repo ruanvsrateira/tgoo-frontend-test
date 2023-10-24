@@ -1,5 +1,8 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Post } from "../../intefaces/Post";
+import { Box, Button } from "@mui/material";
+import { Delete, Edit, Remove } from "@mui/icons-material";
+import theme from "../../theme";
 
 interface TableProps {
   data: Post[];
@@ -35,6 +38,31 @@ export const Table = ({ data }: TableProps) => {
             field: "updated_at",
             headerName: "Atualizado Em",
             width: 200,
+          },
+          {
+            field: "Acões",
+            headerName: "Ações",
+            width: 100,
+            renderCell: () => (
+              <Box display="flex" gap={1}>
+                <Box>
+                  <Edit
+                    style={{
+                      cursor: "pointer",
+                      color: theme.colors["main-blue"],
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <Delete
+                    style={{
+                      cursor: "pointer",
+                      color: theme.colors["main-red"],
+                    }}
+                  />
+                </Box>
+              </Box>
+            ),
           },
         ]}
         initialState={{
