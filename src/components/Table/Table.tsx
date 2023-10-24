@@ -1,14 +1,31 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { Post } from "../../intefaces/Post";
+import { IPost } from "../../intefaces/Post";
 import { Box } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import theme from "../../theme";
+import { redirect, useNavigate, useNavigation } from "react-router-dom";
+import { atom, useAtom } from "jotai";
+import { useEffect } from "react";
+import { ID_ATOM } from "../../storages/storages";
 
 interface TableProps {
-  data: Post[];
+  data: IPost[];
 }
 
 export const Table = ({ data }: TableProps) => {
+  const [postSelectedId, setPostSelectedId] = useAtom(ID_ATOM);
+  const navigation = useNavigate();
+
+  function handleDeletePost(id: number) {
+    setPostSelectedId(String(id));
+    navigation("/delete-post");
+  }
+
+  function handleUpdatePost(id: number) {
+    setPostSelectedId(String(id));
+    navigation("/update-post");
+  }
+
   return (
     <div style={{ height: "auto", width: "100%" }}>
       <DataGrid
@@ -43,10 +60,11 @@ export const Table = ({ data }: TableProps) => {
             field: "Acões",
             headerName: "Ações",
             width: 100,
-            renderCell: () => (
+            renderCell: ({ id }) => (
               <Box display="flex" gap={1}>
                 <Box>
                   <Edit
+                    onClick={(e) => console.log(e.target)}
                     style={{
                       cursor: "pointer",
                       color: theme.colors["main-blue"],
@@ -55,6 +73,7 @@ export const Table = ({ data }: TableProps) => {
                 </Box>
                 <Box>
                   <Delete
+                    onClick={() => handleDeletePost(Number(id))}
                     style={{
                       cursor: "pointer",
                       color: theme.colors["main-red"],
