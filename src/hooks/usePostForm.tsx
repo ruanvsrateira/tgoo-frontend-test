@@ -5,11 +5,16 @@ import { IPostSchema } from "../schemas/post.schema";
 interface usePostForm {
   onSubmit: (values: IPostSchema) => void;
   validationSchema: ObjectSchema<IPostSchema>;
+  initialValues?: IPostSchema;
 }
 
-export function usePostForm({ onSubmit, validationSchema }: usePostForm) {
+export function usePostForm({
+  onSubmit,
+  validationSchema,
+  initialValues,
+}: usePostForm) {
   return useFormik({
-    initialValues: {
+    initialValues: initialValues || {
       title: "",
       seo_title: "",
       tags: "",
