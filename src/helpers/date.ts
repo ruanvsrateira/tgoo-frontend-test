@@ -1,10 +1,10 @@
-import { format } from "date-fns";
+import dayjs from "dayjs";
 
 export const formatDate = (
   date: string,
-  dateFormat = "dd/MM/yyyy HH:mm"
+  dateFormat = "DD/MM/YYYY HH:mm"
 ): string => {
   console.log(date)
 
-  return format(new Date(date), dateFormat);
+  return dayjs(new Date(date)).format(dateFormat);
 };
