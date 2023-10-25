@@ -58,6 +58,12 @@ export const Table = (props: TableProps) => {
     <div style={{ height: "auto", width: "100%" }}>
       <DataGrid
         rows={props.data}
+        localeText={{
+          MuiTablePagination: {
+            labelRowsPerPage: "Conteúdo por página",
+            labelDisplayedRows: ({ page }) => `Página ${++page}`,
+          },
+        }}
         columns={[
           {
             field: "title",
