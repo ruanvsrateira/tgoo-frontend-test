@@ -6,14 +6,13 @@ import { FormHTMLAttributes } from "react";
 import { FormikProps } from "formik";
 import { Link } from "react-router-dom";
 import { IPostSchema } from "../../schemas/post.schema";
-
+import { formatDate } from "../../helpers/date";
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   formik: FormikProps<IPostSchema>;
 }
 
 export const Form = ({ formik, ...props }: FormProps) => {
   const breaker800px = useMediaQuery("(max-width: 800px)");
-
   return (
     <form {...props}>
       <Box
@@ -159,7 +158,7 @@ export const Form = ({ formik, ...props }: FormProps) => {
           fullWidth
           type="datetime-local"
           name="published_at"
-          value={formik.values.published_at}
+          value={formatDate(formik.values.published_at, "YYYY-MM-DDTHH:mm")}
           error={!!formik.errors.published_at}
           helperText={formik.errors.published_at}
           onChange={formik.handleChange}
@@ -170,7 +169,7 @@ export const Form = ({ formik, ...props }: FormProps) => {
           label="destaque até"
           type="datetime-local"
           name="featured_until"
-          value={formik.values.featured_until}
+          value={formatDate(formik.values.featured_until, "YYYY-MM-DDTHH:mm")}
           error={!!formik.errors.featured_until}
           helperText={formik.errors.featured_until}
           onChange={formik.handleChange}
