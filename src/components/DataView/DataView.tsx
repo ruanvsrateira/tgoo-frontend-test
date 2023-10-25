@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { IPostSchema } from "../../schemas/post.schema";
 import theme from "../../theme";
+import { formatDate } from "../../helpers/date";
 
 interface DataViewProps {
   post: IPostSchema;
@@ -45,11 +46,11 @@ export const DataView = ({ post }: DataViewProps) => {
       </p>
       <p style={{ fontFamily: theme.fonts.Poppins }}>
         <strong>Destaque até: </strong>
-        {post.featured_until}
+        {formatDate(post.featured_until)}
       </p>
       <p style={{ fontFamily: theme.fonts.Poppins }}>
         <strong>Publicado Em: </strong>
-        {post.published_at}
+        {formatDate(post.published_at)}
       </p>
     </Box>
   );
