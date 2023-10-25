@@ -6,7 +6,7 @@ import theme from "../../theme";
 
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
-import { SELECTED_POST_DATA, SELECTED_POST_ID } from "../../storages/storages";
+import { SELECTED_POST_DATA } from "../../storages/storages";
 import React from "react";
 import { API } from "../../services/axios";
 import { toast } from "react-toastify";
@@ -19,7 +19,6 @@ interface TableProps {
 }
 
 export const Table = (props: TableProps) => {
-  const [postSelectedId, setPostSelectedId] = useAtom(SELECTED_POST_ID);
   const [postSelectedData, setPostSelectedData] = useAtom(SELECTED_POST_DATA);
   const navigation = useNavigate();
 
@@ -49,9 +48,17 @@ export const Table = (props: TableProps) => {
     });
   }
 
-  function handlePostDetails(id: number) {
-    setPostSelectedId(String(id));
-    navigation("/post-details");
+  async function handlePostDetails(id: number) {
+    props.setLoading(true);
+    await API.get(`/posts/${id}`).then(({ data }) => {
+      if (data.success) {
+        setPostSelectedData(data.data);
+        navigation("/post-details");
+      } else {
+        toast.error("Post não encontrado!");
+      }
+      props.setLoading(true);
+    });
   }
 
   return (
