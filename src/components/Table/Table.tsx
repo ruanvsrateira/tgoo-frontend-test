@@ -1,35 +1,63 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { IPost } from "../../intefaces/Post";
 import { Box } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, More } from "@mui/icons-material";
 import theme from "../../theme";
-import { redirect, useNavigate, useNavigation } from "react-router-dom";
-import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
-import { ID_ATOM } from "../../storages/storages";
+
+import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { SELECTED_POST_DATA, SELECTED_POST_ID } from "../../storages/storages";
+import React from "react";
+import { API } from "../../services/axios";
+import { toast } from "react-toastify";
+import { formatDate } from "../../helpers/date";
 
 interface TableProps {
   data: IPost[];
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Table = ({ data }: TableProps) => {
-  const [postSelectedId, setPostSelectedId] = useAtom(ID_ATOM);
+export const Table = (props: TableProps) => {
+  const [postSelectedId, setPostSelectedId] = useAtom(SELECTED_POST_ID);
+  const [postSelectedData, setPostSelectedData] = useAtom(SELECTED_POST_DATA);
   const navigation = useNavigate();
 
-  function handleDeletePost(id: number) {
-    setPostSelectedId(String(id));
-    navigation("/delete-post");
+  async function handleDeletePost(id: number) {
+    props.setLoading(true);
+    await API.get(`/posts/${id}`).then(({ data }) => {
+      if (data.success) {
+        setPostSelectedData(data.data);
+        navigation("/delete-post");
+      } else {
+        toast.error("Post não encontrado!");
+      }
+      props.setLoading(true);
+    });
   }
 
-  function handleUpdatePost(id: number) {
+  async function handleUpdatePost(id: number) {
+    props.setLoading(true);
+    await API.get(`/posts/${id}`).then(({ data }) => {
+      if (data.success) {
+        setPostSelectedData(data.data);
+        navigation("/update-post");
+      } else {
+        toast.error("Post não encontrado!");
+      }
+      props.setLoading(false);
+    });
+  }
+
+  function handlePostDetails(id: number) {
     setPostSelectedId(String(id));
-    navigation("/update-post");
+    navigation("/post-details");
   }
 
   return (
     <div style={{ height: "auto", width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={props.data}
         columns={[
           {
             field: "title",
@@ -44,16 +72,19 @@ export const Table = ({ data }: TableProps) => {
           {
             field: "published_at",
             headerName: "Publicado em",
+            valueGetter: ({ value }) => formatDate(value),
             width: 200,
           },
           {
             field: "created_at",
             headerName: "Criado em",
+            valueGetter: ({ value }) => formatDate(value),
             width: 200,
           },
           {
             field: "updated_at",
             headerName: "Atualizado Em",
+            valueGetter: ({ value }) => formatDate(value),
             width: 200,
           },
           {
@@ -64,7 +95,7 @@ export const Table = ({ data }: TableProps) => {
               <Box display="flex" gap={1}>
                 <Box>
                   <Edit
-                    onClick={(e) => console.log(e.target)}
+                    onClick={() => handleUpdatePost(Number(id))}
                     style={{
                       cursor: "pointer",
                       color: theme.colors["main-blue"],
@@ -77,6 +108,15 @@ export const Table = ({ data }: TableProps) => {
                     style={{
                       cursor: "pointer",
                       color: theme.colors["main-red"],
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <More
+                    onClick={() => handlePostDetails(Number(id))}
+                    style={{
+                      cursor: "pointer",
+                      color: theme.colors["dark-gray-300"],
                     }}
                   />
                 </Box>
