@@ -80,7 +80,7 @@ export const Home = () => {
       ) : (
         <Fragment>
           <Box mt={10}>
-            <Table data={posts} />
+            <Table data={posts} loading={loading} setLoading={setLoading} />
           </Box>
           <p>{posts.length} Posts</p>
         </Fragment>
