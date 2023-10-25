@@ -1,6 +1,7 @@
 import * as yup from "yup"
 
 export const postSchema = yup.object({
+  id: yup.number(),
   title: yup.string().required("Este campo é Obrigatório!"),
   seo_title: yup.string().required("Este campo é Obrigatório!"),
   tags: yup.string().required("Este campo é Obrigatório!"),
@@ -18,7 +19,7 @@ export const postSchema = yup.object({
   ),})
 
 export interface IPostSchema {
-  id?: string
+  id?: number;
   title: string,
   seo_title: string,
   tags: string,
